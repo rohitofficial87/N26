@@ -1,0 +1,9 @@
+<messaging:emailTemplate subject="Survey" relatedToType="Contact" recipientType="Contact" language="{!relatedTo.language__c}" >
+<messaging:htmlEmailBody >
+Hi {!relatedTo.Name},
+<br />
+<apex:outputText value="{!$Label.EN_Survey_MSG}"></apex:outputText>
+<br />
+<apex:outputLink value="http://n26.com/survey/{!relatedTo.Id}" id="theLink">http://n26.com/survey/{!relatedTo.Id}</apex:outputLink>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>
