@@ -1,0 +1,93 @@
+<aura:component access="global"
+                controller="NB_PriceListController"  extends="c:NB_Utils">
+        <aura:attribute name="recordId" type="Id"></aura:attribute>
+        <aura:attribute name="resultData" type="Object"></aura:attribute>
+        <aura:attribute name="mapofEntryTypeAndPriceList" type="List" ></aura:attribute>
+        <aura:attribute name="homeCountry" type="String"></aura:attribute>
+        <aura:attribute name="productCode" type="String"></aura:attribute>
+        <aura:attribute name="contactId" type="Id"></aura:attribute>
+        <aura:attribute name="listOfAllProducts" type="Id"></aura:attribute>
+       <aura:attribute name="isReadOnly" type="Boolean" default="true"></aura:attribute>
+      
+       <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    
+        
+<aura:method name="onbtnClick" action="{!c.handleBtnClick}" 
+  description="Handle save Edit and cancel btn click"> 
+    <aura:attribute name="isReadOnly" type="Boolean" /> 
+    <aura:attribute name="isSave" type="Boolean" /> 
+      
+</aura:method>
+    
+  <aura:iteration items="{!v.mapofEntryTypeAndPriceList}"  var="entyPriceList" >
+      <br/> <br/> 
+    <div class="slds">
+        <table class="slds-table slds-table--bordered">    	
+            <thead>
+                <tr class="slds-text-heading--label">            	                  
+                    <th class="responsiveHide"> {!entyPriceList.EntryType} </th>  
+                    <th class="responsiveHide"> {!v.homeCountry} </th>                         
+                </tr>        	 
+            </thead> 
+            
+            
+            <aura:iteration items="{!entyPriceList.sortedList}" var="priceItr">
+                <tr class="slds-text-heading--label slds-has-focus" aura:id="test">                        
+                    <td class="slds-has-focusslds-cell-wrap" >   
+                        <aura:if isTrue="{!v.isReadOnly}">
+                        <span >
+                            {!priceItr.Product2.Name}
+                        </span> 
+                     <aura:set attribute="else">
+    <lightning:select name="Product" label="" onchange="{!c.handleOnChangeProduct}"  value="{!priceItr.Product2Id}">
+        <aura:iteration items="{!v.listOfAllProducts}" var="option">
+            <option text="{!option.Name}" value="{!option.Id}"/>
+        </aura:iteration>
+    </lightning:select>
+                                      
+                                      
+                            </aura:set>
+                        </aura:if>
+                        
+                    </td>
+                    <td class="slds-has-focusslds-cell-wrap" >        
+                        <aura:if isTrue="{!v.isReadOnly}">
+                        <span >
+                            <aura:if isTrue="{!priceItr.Currency_Type__c=='Percent'}" >    
+                                
+                                <aura:if isTrue="{!priceItr.UnitPrice==0}" >
+                                    <ui:outputText value="FREE"/>
+                                    <aura:set attribute="else">                                       
+                                        <lightning:formattedNumber value="{!priceItr.UnitPrice}"
+                                                                   style="percent"/> 
+                                    </aura:set>
+                                </aura:if>             
+                                <aura:set attribute="else">
+                                    <aura:if isTrue="{!priceItr.IsNA__c}">
+                                        <ui:outputText value="NA"/>
+                                        
+                                        <aura:set attribute="else">
+                                    <lightning:formattedNumber value="{!priceItr.UnitPrice}" 
+                                                               style="currency" 
+                                                               currencyCode="{!priceItr.Currency_Type__c}"/>
+                                        </aura:set>
+                                        </aura:if>
+                                </aura:set>                                  
+                            </aura:if>                                  
+                        </span>  
+                            
+                              <aura:set attribute="else">
+                                  
+                                  <lightning:input type="text" value="{!priceItr.UnitPrice}">
+                                  </lightning:input>
+                            </aura:set>
+                        </aura:if>
+                    </td>
+                </tr>
+            </aura:iteration>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    </aura:iteration>
+</aura:component>
