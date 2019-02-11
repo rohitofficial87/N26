@@ -1,0 +1,30 @@
+<aura:component  implements="flexipage:availableForRecordHome,force:hasRecordId" 
+                access="global">
+      <aura:attribute name="recordId" type="Id"></aura:attribute>
+    <aura:attribute name="isReadOnly" type="Boolean" default="true"></aura:attribute>
+    
+     <div>
+       <lightning:layout horizontalAlign="spread" pullToBoundary="medium">
+         
+            <lightning:layoutItem flexibility="grow" padding="around-small">
+                      <lightning:buttonGroup>
+         <aura:if isTrue="{!v.isReadOnly==false}">                
+        <lightning:button name="cancel" label="Cancel"  onclick="{!c.handleBtnClickEvent}"  />
+        <lightning:button name="save" label="Save" onclick="{!c.handleBtnClickEvent}"  />
+                          
+         <aura:set attribute="else">                 
+        <lightning:button name="edit"  label="Edit" onclick="{!c.handleBtnClickEvent}" />
+             </aura:set>
+                         </aura:if>  
+                          
+    </lightning:buttonGroup>
+                  <br/>
+  
+        <c:NB_Product_List  aura:id="productList"  recordId="{!v.recordId}"></c:NB_Product_List>
+        <br/><br/>
+
+           </lightning:layoutItem>
+       </lightning:layout>
+    </div>
+	
+</aura:component>
