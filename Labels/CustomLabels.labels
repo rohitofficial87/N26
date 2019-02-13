@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
-    <labels>
-        <fullName>DE_Survey_MSG</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>DE Survey MSG</shortDescription>
-        <value>bitte fülle unsere Umfrage aus:</value>
-    </labels>
-    <labels>
+   <labels>
         <fullName>EN_Survey_MSG</fullName>
         <language>en_US</language>
         <protected>true</protected>
